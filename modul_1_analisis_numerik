@@ -1,0 +1,31 @@
+# Algoritma 1
+# input nilai awal adalah angka yang paling besar
+x_1 = 100000
+
+# input nilai selanjutnya yang merupakan angka yang kecil
+x_2 = 0.00001
+
+# melakukan perulangan 0.00001 sebanyak 100000 kali, pake _ karna nilai yg diulangi sama
+for _ in range (x_1):
+  x_1 += x_2
+
+# cetak hasil
+print (f"hasil algoritma 1: {x_1}")
+
+# Algoritma 2
+totalx = 0.0
+# input nilai awal yang merupakan nilai yang paling kecil
+x_1 = 0.00001
+x_2 = 100000
+
+# melakukan perulangan angka 0.00001 sebanyak 100000 kali
+for _ in range(x_2):
+  totalx += x_1
+
+# menjumlahkan angka kecil terlebih dahulu
+total1 = x_1 * x_2
+# lalu tambahkan ke 100000
+total2 = x_2 + total1
+
+# cetak hasil
+print (f"hasil algoritma 2: {total2}")
