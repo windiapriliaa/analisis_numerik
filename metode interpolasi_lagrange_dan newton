@@ -1,0 +1,82 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# data titik
+x = np.array([1.0, 2.0, 3.0])
+y = np.array([3.0, 8.0, 15.0])
+xp = 2.5
+
+# Fungsi Interpolasi Lagrange
+def lagrange_interpolation(x, y, xp):
+  p = 0.0
+  n = len(x)
+  for i in range(n):
+    L = 1.0
+    for j in range(n):
+      if j != i:
+        L *= (xp - x[j]) / (x[i] - x[j])
+    p += y[i] * L
+  return p
+
+# hitung nilai f(2.5)
+L_value = lagrange_interpolation(x, y, xp)
+print("Lagrange f(2.5) =", L_value)
+
+# ---------- Grafik ---------
+
+
+
+plt.plot(x, y)
+plt.plot(x, y, 'bo', label='Titik Data') # Titik data
+plt.scatter(xp, L_value, color='red', label=f"f({xp})", zorder=5)
+
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Visualisasi Interpolasi Lagrange')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# data titik
+x = np.array([1.0, 2.0, 3.0])
+y = np.array([3.0, 8.0, 15.0])
+xp = 2.5
+
+def newton_interpolation(x, y, xp):
+    n = len(x)
+
+    # Membuat tabel selisih terbagi (divided difference)
+    coef = np.copy(y).astype(float)
+
+    for i in range(1, n):
+        coef[i:n] = (coef[i:n] - coef[i-1:n-1]) / (x[i:n] - x[0:n-i])
+
+    # Evaluasi polinom Newton pada xp
+    p = coef[-1]
+    for k in range(n-2, -1, -1):
+        p = p * (xp - x[k]) + coef[k]
+
+    return p
+    # hitung nilai f(2.5)
+L_value = newton_interpolation(x, y, xp)
+print("newton f(2.5) =", L_value)
+
+# ---------- Grafik ---------
+
+
+plt.plot(x, y)
+plt.plot(x, y, 'bo', label='Titik Data') # Titik data
+plt.scatter(xp, L_value, color='pink', label=f"f({xp})", zorder=5)
+
+plt.xlabel('x')
+plt.ylabel('y')
+plt.title('Visualisasi Interpolasi newton')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+
+
