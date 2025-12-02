@@ -1,0 +1,138 @@
+def gauss_elimination(A, b):
+    n = len(A)
+
+    # Gabungkan matriks A dan vektor b menjadi matriks augmented
+    for i in range(n):
+        A[i].append(b[i])
+
+    # Proses eliminasi
+    for i in range(n):
+
+        # ---------------------------
+        # 1. CEK PIVOT
+        # ---------------------------
+        if A[i][i] == 0:
+            # Mencari baris lain yang punya pivot ≠ 0
+            tukar = False
+            for k in range(i+1, n):
+                if A[k][i] != 0:
+                    # Tukar baris
+                    A[i], A[k] = A[k], A[i]
+                    tukar = True
+                    break
+
+            if not tukar:
+                raise ValueError("Pivot nol dan tidak ada baris bisa ditukar. Sistem tidak dapat diselesaikan.")
+
+        # ---------------------------
+        # 2. NORMALISASI PIVOT
+        # ---------------------------
+        pivot = A[i][i]
+        for j in range(i, n+1):
+            A[i][j] /= pivot
+
+        # ---------------------------
+        # 3. ELIMINASI BARIS DI BAWAH
+        # ---------------------------
+        for k in range(i+1, n):
+            faktor = A[k][i]
+            for j in range(i, n+1):
+                A[k][j] -= faktor * A[i][j]
+
+    # ---------------------------
+    # 4. SUBSTITUSI BALIK
+    # ---------------------------
+    x = [0 for _ in range(n)]
+    for i in range(n-1, -1, -1):
+        x[i] = A[i][n]
+        for j in range(i+1, n):
+            x[i] -= A[i][j] * x[j]
+
+    return x
+
+
+# ---------------------------
+# CONTOH PENGGUNAAN
+# ---------------------------
+
+A = [
+    [1, -1, 1],
+    [3, 2, -2],
+    [1, 3, 3]
+]
+
+b = [0, 5, 4]
+
+hasil = gauss_elimination(A, b)
+print("Eliminasi Gauss soal nomor 1:")
+print("Solusi x =", hasil, "\n")
+
+def gauss_elimination(A, b):
+    n = len(A)
+
+    # Gabungkan matriks A dan vektor b menjadi matriks augmented
+    for i in range(n):
+        A[i].append(b[i])
+
+    # Proses eliminasi
+    for i in range(n):
+
+        # ---------------------------
+        # 1. CEK PIVOT
+        # ---------------------------
+        if A[i][i] == 0:
+            # Mencari baris lain yang punya pivot ≠ 0
+            tukar = False
+            for k in range(i+1, n):
+                if A[k][i] != 0:
+                    # Tukar baris
+                    A[i], A[k] = A[k], A[i]
+                    tukar = True
+                    break
+
+            if not tukar:
+                raise ValueError("Pivot nol dan tidak ada baris bisa ditukar. Sistem tidak dapat diselesaikan.")
+
+        # ---------------------------
+        # 2. NORMALISASI PIVOT
+        # ---------------------------
+        pivot = A[i][i]
+        for j in range(i, n+1):
+            A[i][j] /= pivot
+
+        # ---------------------------
+        # 3. ELIMINASI BARIS DI BAWAH
+        # ---------------------------
+        for k in range(i+1, n):
+            faktor = A[k][i]
+            for j in range(i, n+1):
+                A[k][j] -= faktor * A[i][j]
+
+    # ---------------------------
+    # 4. SUBSTITUSI BALIK
+    # ---------------------------
+    x = [0 for _ in range(n)]
+    for i in range(n-1, -1, -1):
+        x[i] = A[i][n]
+        for j in range(i+1, n):
+            x[i] -= A[i][j] * x[j]
+
+    return x
+
+
+# ---------------------------
+# CONTOH PENGGUNAAN
+# ---------------------------
+
+A = [
+    [1, 1, 2],
+    [1, 1, 1],
+    [3, -1, 2]
+]
+
+b = [9, 6, 7]
+
+hasil = gauss_elimination(A, b)
+print("Eliminasi Gauss soal nomor 2:")
+print("Solusi x =", hasil)
+
